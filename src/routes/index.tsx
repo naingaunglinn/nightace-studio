@@ -133,13 +133,18 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-10">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="grid h-6 w-6 place-items-center border border-ink text-[10px] font-display">
-            N
-          </span>
-          <span className="font-display text-sm tracking-tight">
-            NIGHTACE<sup className="ml-0.5 text-[8px] font-mono">®</sup>
-          </span>
+        <a
+          href="#top"
+          className="flex items-center"
+          aria-label="Nightace Studio — home"
+        >
+          <img
+            src="/nightace-logo.png"
+            alt="Nightace Studio"
+            width={4000}
+            height={1823}
+            className="h-8 w-auto md:h-9"
+          />
         </a>
         <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.18em] md:flex">
           {[
