@@ -209,12 +209,13 @@ function Hero() {
         <div className="relative -mt-6">
           <HeroTitle />
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-12 md:items-end">
-            <p className="col-span-1 max-w-md text-sm leading-relaxed md:col-span-5 md:col-start-8">
+            <p className="col-span-1 max-w-md bg-[color:var(--paper)]/85 p-3 text-sm leading-relaxed backdrop-blur-sm md:col-span-5 md:col-start-8">
               An independent web studio building quiet, precise, motion-driven
               digital work — for founders, cultural brands and small teams that
               care about the details.
             </p>
           </div>
+
         </div>
 
         {/* Bottom strip */}
