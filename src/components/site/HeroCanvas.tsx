@@ -121,7 +121,7 @@ export function HeroCanvas() {
       window.addEventListener("resize", onResize);
 
       const start = performance.now();
-      const posAttr = geometry.getAttribute("position") as THREE.BufferAttribute;
+      const posAttr = geometry.getAttribute("position") as InstanceType<typeof THREE.BufferAttribute>;
 
       const animate = () => {
         const t = (performance.now() - start) * 0.001;
