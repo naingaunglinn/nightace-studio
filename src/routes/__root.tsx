@@ -11,6 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import {
+  GoogleTagManagerScript,
+  GoogleTagManagerNoScript,
+} from "@/components/site/GoogleTagManager";
 
 function NotFoundComponent() {
   return (
@@ -122,9 +126,11 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <GoogleTagManagerScript />
         <HeadContent />
       </head>
       <body>
+        <GoogleTagManagerNoScript />
         {children}
         <Scripts />
       </body>
