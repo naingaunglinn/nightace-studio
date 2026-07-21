@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 
 import { HeroCanvas } from "@/components/site/HeroCanvas";
-import work01 from "@/assets/work-01.jpg";
+import work01 from "@/assets/work-01.png";
 import work02 from "@/assets/work-02.jpg";
 import work03 from "@/assets/work-03.jpg";
 import work04 from "@/assets/work-04.jpg";
@@ -37,44 +37,21 @@ const works = [
   {
     n: "01",
     year: "2026",
-    sector: "Culture",
-    title: "Silent Rooms",
+    sector: "Perfume",
+    title: "Decant Please",
     kicker: "Brand & Site",
     blurb:
-      "An editorial platform for a Kyoto residency program. Long-form journalism, printed rhythm.",
+      "Authentic designer and niche bottles, hand-decanted into 5ml, 10ml and 30ml vials in Yangon — so you can wear the real thing before you commit to it.",
     image: work01,
   },
-  {
-    n: "02",
-    year: "2025",
-    sector: "Retail",
-    title: "Yoru Ichiba",
-    kicker: "E-commerce",
-    blurb:
-      "A late-night market storefront. Motion-first product pages, katakana micro-copy, muted checkout.",
-    image: work02,
-  },
-  {
-    n: "03",
-    year: "2025",
-    sector: "Studio",
-    title: "Sumi Type",
-    kicker: "Type Foundry",
-    blurb:
-      "A specimen site for a small ink-driven type foundry. Live pangrams, weight play, quiet catalogue.",
-    image: work03,
-  },
-  {
-    n: "04",
-    year: "2024",
-    sector: "Architecture",
-    title: "Kage House",
-    kicker: "Portfolio",
-    blurb:
-      "A concrete-house studio's monograph on the web. Interactive floor plans, shadow-first photography.",
-    image: work04,
-  },
 ];
+
+const workYears = Array.from(new Set(works.map((w) => w.year))).sort();
+const workSpan =
+  workYears.length > 1 ? `${workYears[0]} — ${workYears[workYears.length - 1]}` : workYears[0];
+const workCountLabel = `${String(works.length).padStart(2, "0")} ${
+  works.length === 1 ? "project" : "projects"
+}`;
 
 const services = [
   {
@@ -383,18 +360,57 @@ function Manifesto() {
               ["4", "Awards"],
               ["6", "Countries"],
               ["1", "Studio, quiet"],
-            ].map(([n, l]) => (
-              <div key={l} className="border-t border-ink pt-3">
-                <div className="font-display text-4xl md:text-5xl">{n}</div>
-                <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                  {l}
-                </div>
-              </div>
+            ].map(([n, l], i) => (
+              <Stat key={l} value={n} label={l} index={i} />
             ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Stat({ value, label, index }: { value: string; label: string; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const numRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+
+  useEffect(() => {
+    const el = numRef.current;
+    const target = parseInt(value, 10);
+    if (!inView || !el || !Number.isFinite(target)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const suffix = value.replace(/^\d+/, "");
+    const counter = { v: 0 };
+    el.textContent = `0${suffix}`;
+    const tween = gsap.to(counter, {
+      v: target,
+      duration: 1.6,
+      ease: "power3.out",
+      delay: index * 0.08,
+      onUpdate: () => {
+        el.textContent = `${Math.round(counter.v)}${suffix}`;
+      },
+    });
+    return () => {
+      tween.kill();
+    };
+  }, [inView, value, index]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: "easeOut" }}
+      className="border-t border-ink pt-3"
+    >
+      <div ref={numRef} className="font-display text-4xl tabular-nums md:text-5xl">
+        {value}
+      </div>
+      <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-ink/60">{label}</div>
+    </motion.div>
   );
 }
 
@@ -407,7 +423,7 @@ function SelectedWorks() {
         <div className="flex items-end justify-between border-b border-ink/20 pb-6">
           <SectionLabel index="§ 02" title="Selected Work" />
           <div className="hidden text-[11px] uppercase tracking-[0.2em] text-ink/60 md:block">
-            2024 — 2026 · 04 projects
+            {workSpan} · {workCountLabel}
           </div>
         </div>
         <ol className="divide-y divide-ink/20">
@@ -429,7 +445,11 @@ function WorkRow({
 }) {
   return (
     <li className="group relative overflow-hidden">
-      <a href="#" className="block py-10 md:py-16">
+      <a
+        href="https://decant-please.cornerarea.me/"
+        target="_blank"
+        className="block py-10 md:py-16"
+      >
         <div
           className={`grid grid-cols-12 items-center gap-6 ${
             align === "right" ? "md:[direction:rtl]" : ""
@@ -507,7 +527,7 @@ function Services() {
             </h2>
           </div>
           <div className="hidden text-[11px] uppercase tracking-[0.2em] text-paper/60 md:block">
-            04 disciplines
+            {String(services.length).padStart(2, "0")} disciplines
           </div>
         </div>
 
