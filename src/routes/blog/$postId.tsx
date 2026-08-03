@@ -1,5 +1,4 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { Fragment } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import {
@@ -9,6 +8,7 @@ import {
   entryNo,
   formatEntryDate,
   readingMinutes,
+  type EntryBlock,
   type JournalEntry,
 } from "@/components/site/journal";
 
@@ -106,23 +106,8 @@ function EntryArticle() {
           </aside>
 
           <div className="col-span-12 md:col-span-7 lg:col-span-6">
-            {entry.body.map((para, i) => (
-              <Fragment key={i}>
-                <p
-                  lang="my"
-                  className="font-burmese text-[15px] leading-[2.1] text-ink/85 md:text-base [&:not(:first-child)]:mt-7"
-                >
-                  {para}
-                </p>
-                {i === 1 && entry.quote && (
-                  <blockquote
-                    lang="my"
-                    className="font-burmese my-10 border-l-2 border-seal pl-6 text-xl font-bold leading-[1.8] md:text-2xl"
-                  >
-                    {entry.quote}
-                  </blockquote>
-                )}
-              </Fragment>
+            {entry.body.map((block, i) => (
+              <BodyBlock key={i} block={block} />
             ))}
 
             <div className="mt-14 flex items-center gap-3 border-t border-ink/20 pt-6 text-[10px] uppercase tracking-[0.22em] text-ink/50">
@@ -149,6 +134,75 @@ function EntryArticle() {
       </nav>
     </article>
   );
+}
+
+function BodyBlock({ block }: { block: EntryBlock }) {
+  switch (block.type) {
+    case "h":
+      return (
+        <h2
+          lang="my"
+          className="font-burmese mt-12 border-t border-ink/20 pt-8 text-lg font-bold leading-[1.7] first:mt-0 first:border-t-0 first:pt-0 md:text-xl"
+        >
+          {block.text}
+        </h2>
+      );
+    case "num":
+      return (
+        <ol className="mt-8 space-y-6">
+          {block.items.map((item, i) => (
+            <li key={item.term} className="flex gap-4">
+              <span className="pt-2 text-[11px] tracking-[0.2em] text-seal">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 lang="my" className="font-burmese text-base font-bold leading-[1.8]">
+                  {item.term}
+                </h3>
+                <p
+                  lang="my"
+                  className="font-burmese mt-1 text-[15px] leading-[2.1] text-ink/85 md:text-base"
+                >
+                  {item.text}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      );
+    case "def":
+      return (
+        <div className="mt-8">
+          <h3 lang="my" className="font-burmese text-base font-bold leading-[1.8]">
+            {block.term}
+          </h3>
+          <p
+            lang="my"
+            className="font-burmese mt-1 text-[15px] leading-[2.1] text-ink/85 md:text-base"
+          >
+            {block.text}
+          </p>
+        </div>
+      );
+    case "quote":
+      return (
+        <blockquote
+          lang="my"
+          className="font-burmese my-10 border-l-2 border-seal pl-6 text-xl font-bold leading-[1.8] md:text-2xl"
+        >
+          {block.text}
+        </blockquote>
+      );
+    default:
+      return (
+        <p
+          lang="my"
+          className="font-burmese mt-7 text-[15px] leading-[2.1] text-ink/85 first:mt-0 md:text-base"
+        >
+          {block.text}
+        </p>
+      );
+  }
 }
 
 function MetaPair({ label, value }: { label: string; value: React.ReactNode }) {

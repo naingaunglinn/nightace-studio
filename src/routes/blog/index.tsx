@@ -18,13 +18,12 @@ export const Route = createFileRoute("/blog/")({
       { title: "Journal — Nightace Studio" },
       {
         name: "description",
-        content:
-          "စတူဒီယိုရဲ့ မှတ်စုများ — notes on design, typography and motion, written in Burmese.",
+        content: "စတူဒီယိုရဲ့ မှတ်စုများ — notes on design, code and craft, written in Burmese.",
       },
       { property: "og:title", content: "Journal — Nightace Studio" },
       {
         property: "og:description",
-        content: "Notes on design, typography and motion, written in Burmese.",
+        content: "Notes on design, code and craft, written in Burmese.",
       },
     ],
   }),
@@ -71,7 +70,7 @@ function Masthead() {
             lang="my"
             className="font-burmese max-w-2xl text-base font-bold leading-[1.9] text-seal md:text-xl"
           >
-            စတူဒီယိုရဲ့ မှတ်စုများ — ဒီဇိုင်း၊ စာလုံး၊ လှုပ်ရှားမှုအကြောင်း မြန်မာလို ရေးထားတယ်။
+            စတူဒီယိုရဲ့ မှတ်စုများ — ဒီဇိုင်း၊ ကုဒ်၊ လက်ရာအကြောင်း မြန်မာလို ရေးထားတယ်။
           </p>
           <div className="text-[10px] uppercase tracking-[0.22em] text-ink/50">
             Published from Yangon
