@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
@@ -7,6 +7,8 @@ import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { HeroCanvas } from "@/components/site/HeroCanvas";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { JournalEntryRow } from "@/components/site/JournalEntryRow";
+import { journalEntries, journalCountLabel } from "@/components/site/journal";
 import { BookingCalendar } from "@/components/site/BookingCalendar";
 import { bookingQuarterLabel, openDateCount } from "@/components/site/booking";
 import work01 from "@/assets/work-01.png";
@@ -121,6 +123,7 @@ function Landing() {
       <SelectedWorks />
       <Services />
       <AboutUs />
+      <Journal />
       <Contact />
       <SiteFooter />
     </div>
@@ -602,13 +605,48 @@ function ProfileRow({ person, index }: { person: (typeof team)[number]; index: n
   );
 }
 
+/* ---------------- JOURNAL ---------------- */
+
+function Journal() {
+  const latest = journalEntries.slice(0, 2);
+  return (
+    <section id="journal" className="border-t border-ink/20 bg-paper">
+      <div className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+        <div className="flex items-end justify-between border-b border-ink/20 pb-6">
+          <SectionLabel index="§ 05" title="Journal" />
+          <div className="hidden text-[11px] uppercase tracking-[0.2em] text-ink/60 md:block">
+            {journalCountLabel} · In Burmese
+          </div>
+        </div>
+        <ol className="divide-y divide-ink/20">
+          {latest.map((entry, i) => (
+            <JournalEntryRow key={entry.id} entry={entry} index={i} />
+          ))}
+        </ol>
+        <div className="flex justify-end border-t border-ink/20 pt-6">
+          <Link
+            to="/blog"
+            className="group inline-flex items-center gap-2 border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]"
+          >
+            <span>View the journal</span>
+            <span lang="my" className="font-burmese normal-case tracking-normal">
+              · မာတိကာ
+            </span>
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- CONTACT ---------------- */
 
 function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden border-t border-ink/20 bg-paper">
       <div className="mx-auto max-w-[1600px] px-6 py-28 md:px-10 md:py-40">
-        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">§ 05 — Contact</div>
+        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">§ 06 — Contact</div>
         <h2 className="mt-6 font-display text-[18vw] leading-[0.85] md:text-[12vw]">
           GET
           <br />

@@ -100,7 +100,7 @@ function EntryArticle() {
                   </span>
                 }
               />
-              <MetaPair label="Journal" value="§ 06 — Vol. 006" />
+              <MetaPair label="Journal" value="§ 05 — Vol. 006" />
               <MetaPair label="Typeface" value="Pyidaungsu 2.5.3" />
             </div>
           </aside>
