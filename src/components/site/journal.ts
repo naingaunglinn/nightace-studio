@@ -31,7 +31,7 @@ const ENTRIES: JournalEntry[] = [
   {
     id: 1,
     kicker: "Why Brain Fails At Debugging",
-    title: "Debugging အတွက် ဦးနှောက်၏ အလုပ်လုပ်ပုံကို ဆန်းစစ်ခြင်း",
+    title: "ရှာဖွေမှုနှင့် အချက်အလက် သိမ်းဆည်းခြင်းအတွက် ဦးနှောက်၏ အလုပ်လုပ်ပုံကို ဆန်းစစ်ခြင်း",
     category: "Debugging",
     date: "2026-08-03",
     excerpt:
