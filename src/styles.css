@@ -11,6 +11,7 @@
   --color-foreground: var(--foreground);
   --color-ink: var(--ink);
   --color-paper: var(--paper);
+  --color-seal: var(--seal);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
@@ -34,6 +35,7 @@
   --radius: 0;
   --paper: #fdfcf8;
   --ink: #2a2529;
+  --seal: #d8442e;
   --background: #fdfcf8;
   --foreground: #2a2529;
   --card: #fdfcf8;
@@ -59,7 +61,8 @@
   * {
     border-color: var(--color-border);
   }
-  html, body {
+  html,
+  body {
     background-color: var(--paper);
     color: var(--ink);
     font-family: var(--font-mono);
@@ -80,8 +83,7 @@
 }
 
 @utility grid-lines {
-  background-image:
-    linear-gradient(to right, rgba(42,37,41,0.06) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(42, 37, 41, 0.06) 1px, transparent 1px);
   background-size: 8.3333% 100%;
 }
 
@@ -99,8 +101,12 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @utility animate-marquee {
   animation: marquee 40s linear infinite;

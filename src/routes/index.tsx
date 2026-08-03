@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 
 import { HeroCanvas } from "@/components/site/HeroCanvas";
+import { BookingCalendar } from "@/components/site/BookingCalendar";
+import { bookingQuarterLabel, openDateCount } from "@/components/site/booking";
 import work01 from "@/assets/work-01.png";
 import work02 from "@/assets/work-02.jpg";
 import work03 from "@/assets/work-03.jpg";
@@ -25,8 +27,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content:
-          "Quiet, precise, motion-driven websites for founders and cultural brands.",
+        content: "Quiet, precise, motion-driven websites for founders and cultural brands.",
       },
     ],
   }),
@@ -76,6 +77,27 @@ const services = [
   },
 ];
 
+const team = [
+  {
+    name: "Naing Aung Linn",
+    role: "Founder · Design Engineer",
+    focus: "Type / Motion / WebGL",
+    base: "Yangon",
+    bio: "Directs the studio and builds its interactive work end to end — type systems, motion curves and Three.js scenes.",
+    linkLabel: "GitHub",
+    href: "https://github.com/naingaunglinn",
+  },
+  {
+    name: "Aung Kyaw Paing",
+    role: "Full-Stack Developer",
+    focus: "TanStack / APIs",
+    base: "Yangon",
+    bio: "Keeps the quiet parts running — routing, data and deploys. The reason the motion never drops a frame.",
+    linkLabel: "Read.cv",
+    href: "#",
+  },
+];
+
 function Landing() {
   return (
     <div className="relative min-h-screen bg-paper text-ink noise">
@@ -86,6 +108,7 @@ function Landing() {
       <Manifesto />
       <SelectedWorks />
       <Services />
+      <AboutUs />
       <Contact />
       <Footer />
     </div>
@@ -110,11 +133,7 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-10">
-        <a
-          href="#top"
-          className="flex items-center"
-          aria-label="Nightace Studio — home"
-        >
+        <a href="#top" className="flex items-center" aria-label="Nightace Studio — home">
           <img
             src="/nightace-logo.png"
             alt="Nightace Studio"
@@ -129,6 +148,7 @@ function Nav() {
             ["Work", "#work"],
             ["Studio", "#studio"],
             ["Services", "#services"],
+            ["About", "#about"],
           ].map(([label, href]) => (
             <a key={label} href={href} className="group relative py-1">
               <span>{label}</span>
@@ -160,11 +180,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section
-      id="top"
-      ref={ref}
-      className="relative min-h-[100svh] w-full overflow-hidden pt-24"
-    >
+    <section id="top" ref={ref} className="relative min-h-[100svh] w-full overflow-hidden pt-24">
       {/* Column grid guides */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-full grid-lines opacity-70" />
 
@@ -192,20 +208,22 @@ function Hero() {
           <HeroTitle />
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-12 md:items-end">
             <p className="col-span-1 max-w-md bg-[color:var(--paper)]/85 p-3 text-sm leading-relaxed backdrop-blur-sm md:col-span-5 md:col-start-8">
-              An independent web studio building quiet, precise, motion-driven
-              digital work — for founders, cultural brands and small teams that
-              care about the details.
+              An independent web studio building quiet, precise, motion-driven digital work — for
+              founders, cultural brands and small teams that care about the details.
             </p>
           </div>
-
         </div>
 
         {/* Bottom strip */}
         <div className="mt-10 flex items-end justify-between gap-6 border-t border-ink/20 pt-4 text-[10px] uppercase tracking-[0.22em]">
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-ink" />
-            <span>Booking Q2 · 2026</span>
-          </div>
+          <a href="#contact" className="group relative flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-seal" />
+            <span>Booking {bookingQuarterLabel}</span>
+            <span
+              aria-hidden
+              className="absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 bg-ink transition-transform duration-300 group-hover:scale-x-100"
+            />
+          </a>
           <a href="#work" className="flex items-center gap-2 group">
             <span>Scroll · Selected Work</span>
             <ArrowDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
@@ -250,10 +268,7 @@ function HeroTitle() {
 
   const renderLine = (text: string) =>
     text.split("").map((c, i) => (
-      <span
-        key={`${text}-${i}`}
-        className="inline-block overflow-hidden align-top"
-      >
+      <span key={`${text}-${i}`} className="inline-block overflow-hidden align-top">
         <span data-reveal-char className="inline-block will-change-transform">
           {c}
         </span>
@@ -345,11 +360,7 @@ function Manifesto() {
         <div ref={ref} className="col-span-12 md:col-span-9">
           <p className="font-display text-3xl leading-[1.05] md:text-5xl">
             {text.split(" ").map((w, i) => (
-              <span
-                key={i}
-                data-word
-                className="mr-[0.25em] inline-block translate-y-6 opacity-0"
-              >
+              <span key={i} data-word className="mr-[0.25em] inline-block translate-y-6 opacity-0">
                 {w}
               </span>
             ))}
@@ -436,13 +447,7 @@ function SelectedWorks() {
   );
 }
 
-function WorkRow({
-  work,
-  align,
-}: {
-  work: (typeof works)[number];
-  align: "left" | "right";
-}) {
+function WorkRow({ work, align }: { work: (typeof works)[number]; align: "left" | "right" }) {
   return (
     <li className="group relative overflow-hidden">
       <a
@@ -457,9 +462,7 @@ function WorkRow({
         >
           {/* Giant numeral */}
           <div className="col-span-12 md:col-span-3 [direction:ltr]">
-            <div className="font-display text-[28vw] leading-none md:text-[14vw]">
-              {work.n}
-            </div>
+            <div className="font-display text-[28vw] leading-none md:text-[14vw]">{work.n}</div>
           </div>
 
           {/* Image with hover reveal */}
@@ -493,12 +496,8 @@ function WorkRow({
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
                 {work.kicker}
               </div>
-              <h3 className="mt-2 font-display text-4xl md:text-6xl">
-                {work.title}
-              </h3>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/80">
-                {work.blurb}
-              </p>
+              <h3 className="mt-2 font-display text-4xl md:text-6xl">{work.title}</h3>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/80">{work.blurb}</p>
               <div className="mt-6 inline-flex items-center gap-2 border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]">
                 View case
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -522,9 +521,7 @@ function Services() {
             <div className="text-[11px] uppercase tracking-[0.22em] text-paper/60">
               § 03 — Services
             </div>
-            <h2 className="mt-4 font-display text-5xl md:text-7xl">
-              What we make.
-            </h2>
+            <h2 className="mt-4 font-display text-5xl md:text-7xl">What we make.</h2>
           </div>
           <div className="hidden text-[11px] uppercase tracking-[0.2em] text-paper/60 md:block">
             {String(services.length).padStart(2, "0")} disciplines
@@ -542,15 +539,11 @@ function Services() {
               className="group flex flex-col gap-4 border-b border-paper/15 py-10 md:py-14"
             >
               <div className="flex items-baseline justify-between">
-                <span className="text-[11px] uppercase tracking-[0.22em] text-paper/60">
-                  {s.n}
-                </span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-paper/60">{s.n}</span>
                 <ArrowUpRight className="h-4 w-4 opacity-40 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
               </div>
               <h3 className="font-display text-4xl md:text-6xl">{s.name}</h3>
-              <p className="max-w-md text-sm leading-relaxed text-paper/70">
-                {s.body}
-              </p>
+              <p className="max-w-md text-sm leading-relaxed text-paper/70">{s.body}</p>
             </motion.li>
           ))}
         </ul>
@@ -559,59 +552,141 @@ function Services() {
   );
 }
 
+/* ---------------- ABOUT ---------------- */
+
+function AboutUs() {
+  return (
+    <section id="about" className="border-t border-ink/20 bg-paper">
+      <div className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+        <div className="flex items-end justify-between border-b border-ink/20 pb-6">
+          <SectionLabel index="§ 04" title="About Us" />
+          <div className="hidden text-[11px] uppercase tracking-[0.2em] text-ink/60 md:block">
+            {String(team.length).padStart(2, "0")} {team.length === 1 ? "developer" : "developers"}{" "}
+            · One studio
+          </div>
+        </div>
+        <ol className="divide-y divide-ink/20">
+          {team.map((person, i) => (
+            <ProfileRow key={person.name} person={person} index={i} />
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function ProfileRow({ person, index }: { person: (typeof team)[number]; index: number }) {
+  const initials = person.name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 3)
+    .toUpperCase();
+
+  return (
+    <motion.li
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: "easeOut" }}
+      className="group"
+    >
+      <div className="grid grid-cols-12 items-center gap-6 py-10 md:py-14">
+        <div className="col-span-12 md:col-span-1">
+          <span className="text-[11px] uppercase tracking-[0.22em] text-ink/60">
+            P/{String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+
+        <div className="col-span-6 md:col-span-2">
+          <div className="relative aspect-[3/4] overflow-hidden bg-ink/5">
+            <div className="flex h-full items-center justify-center">
+              <span className="font-display text-6xl text-ink/20 transition-colors duration-500 group-hover:text-ink/50 md:text-7xl">
+                {initials}
+              </span>
+            </div>
+            <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.22em] text-ink/40">
+              Portrait — TK
+            </span>
+            <div className="pointer-events-none absolute inset-0 border border-ink/10" />
+          </div>
+        </div>
+
+        <div className="col-span-12 md:col-span-5 md:px-6">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-ink/60">{person.role}</div>
+          <h3 className="mt-2 font-display text-4xl md:text-5xl">{person.name}</h3>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/80">{person.bio}</p>
+        </div>
+
+        <div className="col-span-12 md:col-span-4 md:col-start-9">
+          <div className="grid grid-cols-2 gap-4 border-b border-ink/20 pb-4 text-[11px] uppercase tracking-[0.2em] text-ink/60">
+            <div>
+              <div>Focus</div>
+              <div className="mt-1 text-ink">{person.focus}</div>
+            </div>
+            <div>
+              <div>Base</div>
+              <div className="mt-1 text-ink">{person.base}</div>
+            </div>
+          </div>
+          <a
+            href={person.href}
+            target="_blank"
+            className="mt-5 inline-flex items-center gap-2 border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]"
+          >
+            {person.linkLabel}
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </div>
+    </motion.li>
+  );
+}
+
 /* ---------------- CONTACT ---------------- */
 
 function Contact() {
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden border-t border-ink/20 bg-paper"
-    >
+    <section id="contact" className="relative overflow-hidden border-t border-ink/20 bg-paper">
       <div className="mx-auto max-w-[1600px] px-6 py-28 md:px-10 md:py-40">
-        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">
-          § 04 — Contact
-        </div>
+        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">§ 05 — Contact</div>
         <h2 className="mt-6 font-display text-[18vw] leading-[0.85] md:text-[12vw]">
           GET
           <br />
           IN&nbsp;TOUCH.
         </h2>
-        <div className="mt-10 grid grid-cols-1 gap-10 border-t border-ink/20 pt-8 md:grid-cols-3">
-          <ContactBlock
-            label="Email"
-            value="hello@nightace-studio.dev"
-            href="mailto:hello@nightace-studio.dev"
-          />
-          <ContactBlock
-            label="Booking"
-            value="Q2 · 2026 — 2 slots"
-            href="mailto:hello@nightace-studio.dev?subject=Booking"
-          />
-          <ContactBlock
-            label="Elsewhere"
-            value="Instagram · Are.na · Read.cv"
-            href="#"
-          />
+        <div className="mt-10 grid grid-cols-1 gap-10 border-t border-ink/20 pt-8 lg:grid-cols-12">
+          <div className="lg:col-span-6">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">Booking</div>
+            <div className="mt-3 border-b border-ink pb-3 font-display text-2xl md:text-3xl">
+              {openDateCount > 0
+                ? `${bookingQuarterLabel} — ${openDateCount} ${
+                    openDateCount === 1 ? "day" : "days"
+                  } open`
+                : "By request"}
+            </div>
+            <div className="mt-6">
+              <BookingCalendar />
+            </div>
+          </div>
+          <div className="flex flex-col gap-10 lg:col-span-5 lg:col-start-8">
+            <ContactBlock
+              label="Email"
+              value="hello@nightace-studio.dev"
+              href="mailto:hello@nightace-studio.dev"
+            />
+            <ContactBlock label="Elsewhere" value="Instagram · Are.na · Read.cv" href="#" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function ContactBlock({
-  label,
-  value,
-  href,
-}: {
-  label: string;
-  value: string;
-  href: string;
-}) {
+function ContactBlock({ label, value, href }: { label: string; value: string; href: string }) {
   return (
     <a href={href} className="group block">
-      <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">
-        {label}
-      </div>
+      <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">{label}</div>
       <div className="mt-3 flex items-center justify-between border-b border-ink pb-3 font-display text-2xl md:text-3xl">
         <span>{value}</span>
         <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -640,9 +715,7 @@ function Footer() {
 function SectionLabel({ index, title }: { index: string; title: string }) {
   return (
     <div>
-      <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">
-        {index}
-      </div>
+      <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">{index}</div>
       <h2 className="mt-4 font-display text-3xl md:text-5xl">{title}</h2>
     </div>
   );
