@@ -1,10 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 
 import { HeroCanvas } from "@/components/site/HeroCanvas";
+import { SiteNav } from "@/components/site/SiteNav";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { JournalEntryRow } from "@/components/site/JournalEntryRow";
+import { journalEntries, journalCountLabel } from "@/components/site/journal";
 import { BookingCalendar } from "@/components/site/BookingCalendar";
 import { bookingQuarterLabel, openDateCount } from "@/components/site/booking";
 import work01 from "@/assets/work-01.png";
@@ -102,69 +106,27 @@ function Landing() {
   return (
     <div className="relative min-h-screen bg-paper text-ink noise">
       <span className="noise-overlay" aria-hidden />
-      <Nav />
+      <SiteNav
+        homeHref="#top"
+        ctaHref="#contact"
+        links={[
+          ["Work", "#work"],
+          ["Studio", "#studio"],
+          ["Services", "#services"],
+          ["About", "#about"],
+          ["Journal", "/blog"],
+        ]}
+      />
       <Hero />
       <Marquee />
       <Manifesto />
       <SelectedWorks />
       <Services />
       <AboutUs />
+      <Journal />
       <Contact />
-      <Footer />
+      <SiteFooter />
     </div>
-  );
-}
-
-/* ---------------- NAV ---------------- */
-
-function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "backdrop-blur-md bg-[color:var(--paper)]/80" : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-10">
-        <a href="#top" className="flex items-center" aria-label="Nightace Studio — home">
-          <img
-            src="/nightace-logo.png"
-            alt="Nightace Studio"
-            width={4000}
-            height={1823}
-            className="h-8 w-auto md:h-9"
-          />
-        </a>
-        <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.18em] md:flex">
-          {[
-            ["Index", "#top"],
-            ["Work", "#work"],
-            ["Studio", "#studio"],
-            ["Services", "#services"],
-            ["About", "#about"],
-          ].map(([label, href]) => (
-            <a key={label} href={href} className="group relative py-1">
-              <span>{label}</span>
-              <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-ink transition-transform duration-300 group-hover:scale-x-100" />
-            </a>
-          ))}
-        </nav>
-        <a
-          href="#contact"
-          className="group inline-flex items-center gap-2 border border-ink px-4 py-2 text-[11px] uppercase tracking-[0.18em] transition-colors hover:bg-ink hover:text-paper"
-        >
-          <span>Start a project</span>
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
-      </div>
-    </header>
   );
 }
 
@@ -643,13 +605,48 @@ function ProfileRow({ person, index }: { person: (typeof team)[number]; index: n
   );
 }
 
+/* ---------------- JOURNAL ---------------- */
+
+function Journal() {
+  const latest = journalEntries.slice(0, 2);
+  return (
+    <section id="journal" className="border-t border-ink/20 bg-paper">
+      <div className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+        <div className="flex items-end justify-between border-b border-ink/20 pb-6">
+          <SectionLabel index="§ 05" title="Journal" />
+          <div className="hidden text-[11px] uppercase tracking-[0.2em] text-ink/60 md:block">
+            {journalCountLabel} · In Burmese
+          </div>
+        </div>
+        <ol className="divide-y divide-ink/20">
+          {latest.map((entry, i) => (
+            <JournalEntryRow key={entry.id} entry={entry} index={i} />
+          ))}
+        </ol>
+        <div className="flex justify-end border-t border-ink/20 pt-6">
+          <Link
+            to="/blog"
+            className="group inline-flex items-center gap-2 border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]"
+          >
+            <span>View the journal</span>
+            <span lang="my" className="font-burmese normal-case tracking-normal">
+              · မာတိကာ
+            </span>
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- CONTACT ---------------- */
 
 function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden border-t border-ink/20 bg-paper">
       <div className="mx-auto max-w-[1600px] px-6 py-28 md:px-10 md:py-40">
-        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">§ 05 — Contact</div>
+        <div className="text-[11px] uppercase tracking-[0.22em] text-ink/60">§ 06 — Contact</div>
         <h2 className="mt-6 font-display text-[18vw] leading-[0.85] md:text-[12vw]">
           GET
           <br />
@@ -692,21 +689,6 @@ function ContactBlock({ label, value, href }: { label: string; value: string; hr
         <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </div>
     </a>
-  );
-}
-
-/* ---------------- FOOTER ---------------- */
-
-function Footer() {
-  return (
-    <footer className="border-t border-ink/20 bg-paper">
-      <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-end gap-6 px-6 py-10 text-[10px] uppercase tracking-[0.22em] md:grid-cols-4 md:px-10">
-        <div>© Nightace Studio</div>
-        <div>MMXXVI</div>
-        <div className="hidden md:block">All rights reserved</div>
-        <div className="text-right">Made with quiet care · TYO</div>
-      </div>
-    </footer>
   );
 }
 
