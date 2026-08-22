@@ -36,11 +36,11 @@ export function SiteNav({
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-10">
         <a href={homeHref} className="flex items-center" aria-label="Nightace Studio — home">
           <img
-            src="/nightace-logo.png"
+            src="/na-logo.png"
             alt="Nightace Studio"
-            width={4000}
-            height={1823}
-            className="h-8 w-auto md:h-9"
+            width={425}
+            height={320}
+            className="h-9 w-auto md:h-10"
           />
         </a>
         <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.18em] md:flex">
