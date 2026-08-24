@@ -284,7 +284,7 @@ const ENTRIES: JournalEntry[] = [
   {
     id: 4,
     kicker: "Escaping Tutorial Hell",
-    title: "Tutorial Hell: မသိလို့သင်နေတာလား၊ မစရဲလို့သင်နေတာလား?",
+    title: "မသိလို့သင်နေတာလား၊ မစရဲလို့သင်နေတာလား?",
     category: "Learning",
     date: "2026-08-24",
     excerpt:
