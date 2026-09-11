@@ -481,6 +481,195 @@ const ENTRIES: JournalEntry[] = [
       },
     ],
   },
+  {
+    id: 6,
+    kicker: "YAGNI — You Aren't Gonna Need It",
+    title: "မလိုသေးတာကို ဘာလို့အခုကတည်းကလုပ်နေတာလဲ?",
+    category: "Engineering",
+    date: "2026-09-11",
+    excerpt:
+      "“ဒီ Feature က အခုမလိုသေးပေမယ့် နောက်ပိုင်းတော့ လိုလာမှာပဲ” ဆိုပြီး Requirement မရှိသေးတဲ့ Feature တွေကို အခုကတည်းက Build လုပ်မိတတ်ကြတယ်။ YAGNI (You Aren't Gonna Need It) Principle က ဘာလို့ “မလိုသေးတာကို မလုပ်သေးနဲ့” လို့ဆိုတာနဲ့ Future-proof နဲ့ Future guessing ကြားက ခြားနားချက်ကို ဆန်းစစ်ကြည့်ထားတယ်။",
+    body: [
+      {
+        type: "p",
+        text: "“ဒီ Feature က အခုမလိုသေးပေမယ့် နောက်ပိုင်းတော့ လိုလာမှာပဲ။ အခုကတည်းက ထည့်ထားလိုက်မယ်…” Developer တွေ ဒီစကားကို တော်တော်များများ ပြောဖူးကြမယ်ထင်တယ်။",
+      },
+      {
+        type: "p",
+        text: "Project အသစ်တစ်ခုစတယ်။ အခုလိုတာက",
+      },
+      {
+        type: "num",
+        items: [
+          { term: "Login", text: "" },
+          { term: "User Management", text: "" },
+          { term: "Data List", text: "" },
+          { term: "Create / Edit / Delete", text: "" },
+        ],
+      },
+      {
+        type: "p",
+        text: "ဒီလောက်ပဲ။ ဒါပေမယ့် Development စလုပ်တာနဲ့— “နောက်ပိုင်း User များလာရင် Microservices ပြောင်းရမယ်ထင်တယ်” “Search က Data များလာရင် Elasticsearch လိုလာနိုင်တယ်” “နောက်ပိုင်း Mobile App ထွက်ရင် API architecture က အခုကတည်းက flexible ဖြစ်ရမယ်” “Multi-language လည်း ထည့်ရနိုင်တယ်” “AI feature တောင် နောက်ပိုင်းပါလာနိုင်တယ်” ဆိုပြီး အခုမလိုသေးတဲ့အရာတွေကို တစ်ခုချင်းစီ စဉ်းစားပြီး Build လုပ်လာတယ်။",
+      },
+      {
+        type: "p",
+        text: "နောက်ဆုံးမှာ… Project က Requirement ကြောင့် Complex ဖြစ်တာထက် Developer ရဲ့ “နောက်ပိုင်းလိုလာနိုင်တယ်” ဆိုတဲ့အတွေးကြောင့် Complex ဖြစ်လာတယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒီနေရာမှာ YAGNI ဆိုတဲ့ Principle တစ်ခု ရှိတယ်။ YAGNI = You Aren't Gonna Need It. အဓိပ္ပါယ်က ရိုးရိုးလေးပဲ။ အခုမလိုသေးတဲ့ Feature ကို အခုကတည်းက မလုပ်နဲ့။",
+      },
+      { type: "h", text: "ဒါပေမယ့် “Future ကို မစဉ်းစားနဲ့” လို့ ပြောတာမဟုတ်ဘူး" },
+      {
+        type: "p",
+        text: "YAGNI ကို တစ်ခါတလေ “Future အတွက် ဘာမှမစဉ်းစားနဲ့” လို့ နားလည်ကြတယ်။ အဲ့ဒါ မဟုတ်ဘူး။",
+      },
+      {
+        type: "p",
+        text: "ဥပမာ— အခု Project မှာ Login က Username + Password ပဲရှိတယ်။ နောက်ပိုင်း Google Login လိုလာနိုင်တယ်ဆိုတာ သိတယ်။ ဒါဆို Google Login ကို အခုကတည်းက Build လုပ်ထားဖို့ မလိုဘူး။",
+      },
+      {
+        type: "p",
+        text: "ဒါပေမယ့် Authentication ကို ဒီလို Hard-code လုပ်ထားမယ်— if username/password: login ပြီးတော့ နောက်ပိုင်း OAuth ထည့်လို့မရအောင် Architecture ကို တင်းတင်းကျပ်ကျပ် ချည်ထားတာမျိုးတော့ မလုပ်သင့်ဘူး။",
+      },
+      {
+        type: "p",
+        text: "အခုလိုအပ်တာကို ရိုးရိုးရှင်းရှင်း Build လုပ်။ နောက်ပိုင်း Requirement တကယ်ရောက်လာရင် ပြောင်းလို့ရအောင် Code ကို မရေးမိအောင်ပဲ သတိထား။ “Future ကို မဆောက်နဲ့” ဆိုတာနဲ့ “Future အတွက် မစဉ်းစားနဲ့” ဆိုတာ မတူဘူး။",
+      },
+      { type: "h", text: "Real Project တစ်ခုမှာ YAGNI မရှိရင် ဘယ်လိုဖြစ်လဲ?" },
+      {
+        type: "p",
+        text: "ဥပမာ Admin Dashboard မှာ User List တစ်ခုရှိတယ်။ Requirement က—",
+      },
+      {
+        type: "num",
+        items: [
+          { term: "Name", text: "" },
+          { term: "Email", text: "" },
+          { term: "Status", text: "" },
+        ],
+      },
+      {
+        type: "p",
+        text: "ဒီသုံးခု ပြရုံပဲ။ ဒါပေမယ့် Developer က— “နောက်ပိုင်း User များလာရင် Advanced Search လိုမယ်” “CSV Export လိုမယ်” “Excel Export လည်း လိုလာနိုင်တယ်” “Column customization ထည့်ထားရင်ကောင်းမယ်” “Permission system လည်း flexible ဖြစ်အောင်လုပ်ထားမယ်” ဆိုပြီး Requirement မရှိသေးတဲ့ Feature တွေကို စလုပ်တယ်။",
+      },
+      {
+        type: "p",
+        text: "တချို့က နောက်ပိုင်း တကယ်လိုလာနိုင်တယ်။ ဒါပေမယ့် Problem က— “တကယ်လိုလာမလား?” ဆိုတာ မသိသေးဘူး။ အဲ့ဒီအချိန်မှာ Developer ရဲ့ Time ကတော့ တကယ်ကုန်နေပြီ။",
+      },
+      {
+        type: "p",
+        text: "ပြီးတော့ Feature တစ်ခုထည့်လိုက်တိုင်း Code တင်မကဘူး— Testing ရှိတယ်။ Bug ရှိတယ်။ Maintenance ရှိတယ်။ Documentation ရှိတယ်။ နောက် Developer တစ်ယောက်လာရင် Explain လုပ်ရတယ်။ အဲ့ဒီ Feature ကို မသုံးဖြစ်သွားရင်တောင် Complexity ကတော့ Project ထဲမှာ ကျန်ခဲ့တယ်။",
+      },
+      {
+        type: "p",
+        text: "“ဒါတွေက တကယ်ဖြစ်ခဲ့တာလား?” ဒီလိုပြောရင် “ဒါက Developer တွေရဲ့ Theory ပဲလေ” လို့ ထင်နိုင်တယ်။ တကယ်တော့ Software World မှာ ဒီလို Scope ကြီးသွားတာမျိုးတွေ အကြီးစား Project တွေမှာတောင် ဖြစ်ခဲ့ဖူးတယ်။",
+      },
+      {
+        type: "p",
+        text: "ဥပမာ Microsoft ရဲ့ Windows Longhorn Project ကိုကြည့်လို့ရတယ်။ Longhorn က Development လုပ်ရင်း Feature နဲ့ Technology တွေ တဖြည်းဖြည်း တိုးလာခဲ့တယ်။ အချိန်ကြာလာတာနဲ့အမျှ Project ရဲ့ Complexity က မူလ Plan ထက် အများကြီးကြီးလာပြီး နောက်ဆုံး Microsoft က 2004 မှာ Development ကို Reset လုပ်ပြီး ပြန်တည်ဆောက်ခဲ့ရတယ်။",
+      },
+      {
+        type: "p",
+        text: "အဲ့ဒီ Project ကို “YAGNI မလိုက်လို့ Vista ပျက်သွားတယ်” လို့တော့ မပြောသင့်ဘူး။ ဒါပေမယ့် Software Project တစ်ခုမှာ “ဒါလည်းထည့်မယ်၊ ဟိုဟာလည်းထည့်မယ်၊ နောက်ပိုင်းလိုလာနိုင်တယ်” ဆိုပြီး Scope နဲ့ Complexity တိုးလာတာ ဘယ်လောက်အထိ အန္တရာယ်ရှိနိုင်လဲဆိုတာကို ပြတဲ့ နာမည်ကြီး Example တစ်ခုတော့ ဖြစ်တယ်။",
+      },
+      {
+        type: "p",
+        text: "Google+ ကလည်း နောက်ထပ် စိတ်ဝင်စားဖို့ကောင်းတဲ့ Example တစ်ခု။ Google က Social Network လောကထဲကို Google+ နဲ့ ဝင်လာခဲ့တယ်။ ဒါပေမယ့် 2018 မှာ Google ကိုယ်တိုင် Consumer Google+ ဟာ broad consumer adoption မရခဲ့ဘူးလို့ ပြောပြီး Consumer version ကို Shutdown လုပ်ဖို့ ဆုံးဖြတ်ခဲ့တယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒီနေရာမှာလည်း “Google+ က YAGNI ကြောင့် fail သွားတယ်” လို့ ပြောတာ မမှန်ဘူး။ ဒါပေမယ့် Product တစ်ခု Build လုပ်တဲ့အခါ “User တွေ နောက်ပိုင်း ဒီဟာကို သုံးလာမှာပဲ” ဆိုတဲ့ Assumption နဲ့ Build လုပ်တာနဲ့ “User တွေ တကယ်လိုချင်တာကို အရင်စမ်းကြည့်မယ်” ဆိုတာ ဘယ်လောက်ကွာလဲဆိုတာ စဉ်းစားစရာကောင်းတယ်။",
+      },
+      {
+        type: "p",
+        text: "Software Engineering မှာ အရေးကြီးတာက Build လုပ်နိုင်တာတင်မဟုတ်ဘူး။ ဘာကို မဆောက်သေးသင့်လဲဆိုတာလည်း သိဖို့လိုတယ်။",
+      },
+      { type: "h", text: "“Future-proof” ဆိုတာ တစ်ခါတလေ “Future guessing” ဖြစ်နေတတ်တယ်" },
+      {
+        type: "p",
+        text: "Developer တွေ Future-proof ဆိုတဲ့စကားကို သဘောကျကြတယ်။ Architecture ကို flexible ဖြစ်အောင်လုပ်မယ်။ Generic ဖြစ်အောင်လုပ်မယ်။ Reusable ဖြစ်အောင်လုပ်မယ်။ Extension point တွေ ထည့်ထားမယ်။ ဒါတွေက အခြေအနေမှန်ရင် ကောင်းတယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒါပေမယ့် Future Requirement ကို မသိဘဲ Future-proof လုပ်နေရင်— Future-proofing မဟုတ်တော့ဘဲ Future ကို Guess လုပ်နေတာ ဖြစ်သွားနိုင်တယ်။",
+      },
+      {
+        type: "p",
+        text: "ဥပမာ— အခု System မှာ Role နှစ်ခုပဲလိုတယ်။ ADMIN, STAFF",
+      },
+      {
+        type: "p",
+        text: "ဒါပေမယ့် “နောက်ပိုင်းမှာ Manager, Supervisor, Auditor, Editor, Viewer, Finance…” စသဖြင့် Role 10 ခုလောက် ဖြစ်လာနိုင်တယ်ဆိုပြီး Authorization Framework ကြီးတစ်ခု ဆောက်လိုက်တယ်။",
+      },
+      {
+        type: "p",
+        text: "သုံးလအကြာ— ADMIN, STAFF ပဲ ရှိနေသေးတယ်။ ဒါပေမယ့် Code ထဲမှာတော့ RoleResolver, PermissionManager, AccessPolicy, RoleHierarchy, PermissionStrategy တွေ အပြည့်ရှိနေပြီ။",
+      },
+      {
+        type: "p",
+        text: "အဲ့ဒါက Future-proof လား? တစ်ချို့အခြေအနေမှာ ဟုတ်နိုင်တယ်။ ဒါပေမယ့် Requirement မသေချာသေးရင်တော့ မလိုသေးတဲ့ Complexity ကို အရင်ယူထားတာ ဖြစ်နိုင်တယ်။",
+      },
+      { type: "h", text: "YAGNI နဲ့ Technical Debt ကလည်း မတူဘူး" },
+      {
+        type: "p",
+        text: "ဒီနှစ်ခုကို တစ်ခါတလေ ရောသွားတတ်တယ်။ Technical Debt ဆိုတာ— “အခုလိုအပ်လို့ ဒီနည်းနဲ့ အမြန်လုပ်လိုက်တယ်။ နောက်ပိုင်းမှာ ပြန်ရှင်းရမယ်” YAGNI က— “အခုမလိုသေးလို့ အခုမလုပ်သေးဘူး” ဆိုတာ။",
+      },
+      {
+        type: "p",
+        text: "တစ်ခုက လိုအပ်နေတဲ့အရာကို Trade-off နဲ့ အရင်လုပ်ထားတာ။ တစ်ခုက မလိုသေးတဲ့အရာကို မလုပ်သေးတာ။",
+      },
+      {
+        type: "p",
+        text: "ဥပမာ MVP ကို ၂ ပတ်အတွင်း Launch လုပ်ရမယ်။ Perfect Architecture ဆောက်ဖို့ ၃ လကြာမယ်။ ဒါဆို Scope ကို ထိန်းပြီး အခုလိုအပ်တာကို အရင် Build လုပ်ပြီး နောက်မှ Refactor လုပ်တာက Reasonable ဖြစ်နိုင်တယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒါပေမယ့် Requirement မရှိသေးတဲ့ Feature တွေကို “နောက်ပိုင်းလိုလာနိုင်တယ်” ဆိုပြီး အခုကတည်းက Build လုပ်နေတာက YAGNI နဲ့ ဆန့်ကျင်တယ်။",
+      },
+      { type: "h", text: "YAGNI က Careless Code ရေးဖို့ ခွင့်ပြုတာမဟုတ်ဘူး" },
+      {
+        type: "p",
+        text: "“YAGNI ဆိုတော့ အခုလိုအပ်တာပဲရေးမယ်” ဆိုပြီး Code ကို တမင်တကာ Bad Code ရေးတာလည်း မဟုတ်ဘူး။ အခု Requirement ကို သေချာနားလည်ပြီး Simple ဖြစ်အောင်ရေး။ Test လုပ်။ Maintainable ဖြစ်အောင်ရေး။ ဒါပေမယ့် မလိုသေးတဲ့ Feature တွေအတွက် Complexity မထည့်နဲ့။",
+      },
+      {
+        type: "p",
+        text: "Google Login မလိုသေးရင် Google Login မဆောက်နဲ့။ ဒါပေမယ့် နောက်ပိုင်း Google Login ထည့်မရအောင် Authentication ကို ဘယ်လိုမှ ပြောင်းလို့မရတဲ့ Code မရေးနဲ့။ ဒီ Balance က အရေးကြီးတယ်။",
+      },
+      {
+        type: "h",
+        text: "တကယ်တော့ Developer တွေရဲ့ ပြဿနာက “Build လုပ်နိုင်လွန်းတာ” လည်း ဖြစ်တတ်တယ်",
+      },
+      {
+        type: "p",
+        text: "Developer တစ်ယောက်ကို Feature တစ်ခုခိုင်းလိုက်ရင် Build လုပ်နိုင်တယ်။ ဒါပေမယ့် Senior ဖြစ်လာတာနဲ့အမျှ သိလာရမယ့်အရာက— “ဘာလုပ်ရမလဲ” ထက် “ဘာမလုပ်သင့်သေးလဲ” ဆိုတာပါ။",
+      },
+      {
+        type: "p",
+        text: "Feature တစ်ခုကို မလုပ်ဖို့ ဆုံးဖြတ်တာက ဘာမှမလုပ်တာ မဟုတ်ဘူး။ အဲ့ဒီ Feature ရဲ့ Maintenance Cost ကို ရှောင်လိုက်တာ။ အဲ့ဒီအချိန်ကို လက်ရှိလိုအပ်တဲ့ Feature အတွက် သုံးလိုက်တာ။ Testing လုပ်လိုက်တာ။ Bug Fix လုပ်လိုက်တာ။ Performance ပြင်လိုက်တာ။ Requirement ကို ပိုနားလည်အောင် User နဲ့ ဆွေးနွေးလိုက်တာ။ ဒါတွေကလည်း Development Work ပဲ။",
+      },
+      {
+        type: "p",
+        text: "YAGNI ကို နောက်ဆုံးတော့ ဒီလိုမှတ်ထားလို့ရတယ်။ “တစ်နေ့တော့ လိုလာမှာပဲ” ဆိုတာက အခုလုပ်ဖို့ Reason မဟုတ်သေးဘူး။",
+      },
+      {
+        type: "p",
+        text: "တကယ်လိုလာတဲ့နေ့ရောက်ရင်— အဲ့ဒီနေ့ရဲ့ Requirement ကိုကြည့်။ အဲ့ဒီအချိန်ရဲ့ User ကိုကြည့်။ အဲ့ဒီအချိန်ရဲ့ Business ကိုကြည့်။ ပြီးတော့ အဲ့ဒီအချိန်မှာ Build လုပ်။",
+      },
+      {
+        type: "p",
+        text: "ဘာလို့လဲဆိုတော့… Future Requirement ကို အခုကတည်းက Guess လုပ်ပြီး Code ရေးနေရင်၊ နောက်ပိုင်းမှာ User ရဲ့ Problem ကို ဖြေရှင်းနေတာထက် ကိုယ်တိုင်ဖန်တီးထားတဲ့ Complexity ကို ပြန်ဖြေရှင်းနေရနိုင်တယ်။",
+      },
+      {
+        type: "p",
+        text: "Good Developer ဆိုတာ Feature အများကြီး Build လုပ်နိုင်တဲ့သူတင် မဟုတ်ဘူး။ မလိုသေးတဲ့ Feature ကို မလုပ်ဘဲနေနိုင်တဲ့သူလည်း ဖြစ်တယ်။",
+      },
+      {
+        type: "quote",
+        text: "You Aren't Gonna Need It. မလိုသေးရင် မလုပ်သေးနဲ့။",
+      },
+    ],
+  },
 ];
 
 const BURMESE_DIGITS = "၀၁၂၃၄၅၆၇၈၉";
