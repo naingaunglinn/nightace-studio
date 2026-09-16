@@ -729,7 +729,11 @@ const ENTRIES: JournalEntry[] = [
       },
       {
         type: "p",
-        text: "Request A → Check stock = 1 → Buy, Request B → Check stock = 1 → Buy",
+        text: "Request A → Check stock = 1, Request B → Check stock = 1",
+      },
+      {
+        type: "p",
+        text: "Request A → Buy, Request B → Buy",
       },
       {
         type: "p",
