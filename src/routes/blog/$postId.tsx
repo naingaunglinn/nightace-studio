@@ -193,6 +193,14 @@ function BodyBlock({ block }: { block: EntryBlock }) {
           {block.text}
         </blockquote>
       );
+    case "code":
+      // A technical specimen inset — the site's IBM Plex Mono on a muted-paper
+      // panel. Neutral (no seal): seal marks editorial emphasis, code is reference.
+      return (
+        <pre className="my-8 overflow-x-auto whitespace-pre border border-ink/15 bg-muted px-5 py-4 font-mono text-[13px] leading-[1.85] text-ink/90 md:text-sm">
+          {block.text}
+        </pre>
+      );
     default:
       return (
         <p

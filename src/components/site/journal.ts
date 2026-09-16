@@ -5,14 +5,16 @@ export type EntryListItem = { term: string; text: string };
 /**
  * Journal bodies are typed blocks, not flat paragraphs, so an entry can keep
  * the structure it was written with: subheads, a numbered run, a bold-term
- * definition, or a pulled quote.
+ * definition, a pulled quote, or a monospace code specimen (line breaks and
+ * indentation preserved).
  */
 export type EntryBlock =
   | { type: "p"; text: string }
   | { type: "h"; text: string }
   | { type: "num"; items: EntryListItem[] }
   | { type: "def"; term: string; text: string }
-  | { type: "quote"; text: string };
+  | { type: "quote"; text: string }
+  | { type: "code"; text: string };
 
 export type JournalEntry = {
   id: number;
@@ -712,8 +714,8 @@ const ENTRIES: JournalEntry[] = [
         text: "ဒီလို Code မျိုးရှိတယ်လို့ စဉ်းစားကြည့်။",
       },
       {
-        type: "p",
-        text: "if ($stock > 0) { $stock = $stock - 1; createOrder(); }",
+        type: "code",
+        text: "if ($stock > 0) {\n    $stock = $stock - 1;\n    createOrder();\n}",
       },
       {
         type: "p",
