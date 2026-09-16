@@ -670,6 +670,137 @@ const ENTRIES: JournalEntry[] = [
       },
     ],
   },
+  {
+    id: 7,
+    kicker: "Understanding Race Conditions",
+    title: "Code မှန်တယ်… ဒါပေမယ့် တစ်ခါတလေမှားတယ်",
+    category: "Engineering",
+    date: "2026-09-16",
+    excerpt:
+      "“ဒီ Bug ကို Reproduce လုပ်လို့မရဘူး၊ တစ်ခါတလေမှ ဖြစ်တယ်” ဆိုတဲ့ Bug မျိုးနဲ့ ကြုံဖူးကြလား။ Code ကို တစ်ကြောင်းချင်းကြည့်ရင် မှန်ပေမယ့် Request နှစ်ခု တစ်ချိန်တည်းရောက်လာတဲ့အခါ Result မှားသွားတတ်တဲ့ Race Condition နဲ့ သူ့ကို ဘာလို့ Reproduce လုပ်ရခက်တာလဲဆိုတာ ဆန်းစစ်ကြည့်ထားတယ်။",
+    body: [
+      {
+        type: "p",
+        text: "ဒီ Bug ကို Reproduce လုပ်လို့မရဘူးဗျ။ တစ်ခါတလေ ဖြစ်တယ်။ တစ်ခါတလေ မဖြစ်ဘူး။ Local မှာတော့ ဘာမှမဖြစ်ဘူး။ Production ရောက်မှ User က Screenshot ပို့လာတယ်။ “ပစ္စည်းတစ်ခုတည်းကို Customer နှစ်ယောက် ဝယ်သွားတယ်” တဲ့။",
+      },
+      {
+        type: "p",
+        text: "ဥပမာ ကိုယ့် Online Shop မှာ Product တစ်ခုရှိတယ်။ iPhone Case, Stock = 1။ Customer A က ဝယ်တယ်။ တစ်ချိန်တည်းမှာ Customer B ကလည်း ဝယ်တယ်။ System က ပထမဆုံး Stock ကို စစ်တယ်။",
+      },
+      {
+        type: "p",
+        text: "A → Stock ဘယ်လောက်ရှိလဲ? → 1, B → Stock ဘယ်လောက်ရှိလဲ? → 1",
+      },
+      {
+        type: "p",
+        text: "နှစ်ယောက်လုံးကို “Stock ရှိတယ်” လို့ ပြောလိုက်တယ်။ ပြီးတော့—",
+      },
+      {
+        type: "p",
+        text: "A → ဝယ်ယူပြီး → Stock = 0, B → ဝယ်ယူပြီး → Stock = 0",
+      },
+      {
+        type: "p",
+        text: "ဖြစ်သွားတယ်။ အမှန်တော့ Stock က 1 ခုပဲရှိတာ။ ဒါပေမယ့် Customer နှစ်ယောက်လုံး Order တင်လို့ရသွားတယ်။",
+      },
+      {
+        type: "p",
+        text: "“Stock စစ်တဲ့ Code မှားလို့လား?” မဟုတ်ဘူး။ “Stock လျှော့တဲ့ Code မှားလို့လား?” လည်း မဟုတ်ဘူး။ ပြဿနာက နှစ်ယောက်က တစ်ချိန်တည်းမှာ Stock ကို စစ်လိုက်တာ။",
+      },
+      {
+        type: "p",
+        text: "ဒီလို Code မျိုးရှိတယ်လို့ စဉ်းစားကြည့်။",
+      },
+      {
+        type: "p",
+        text: "if ($stock > 0) { $stock = $stock - 1; createOrder(); }",
+      },
+      {
+        type: "p",
+        text: "ဒီ Code ကို တစ်ယောက်တည်းလာရင် ဘာမှမဖြစ်ဘူး။ Stock = 1 ဆိုရင်—",
+      },
+      {
+        type: "p",
+        text: "Check → 1 ↓ Buy ↓ Stock = 0",
+      },
+      {
+        type: "p",
+        text: "အဆင်ပြေတယ်။ ဒါပေမယ့် Request နှစ်ခု တစ်ပြိုင်နက်နီးပါး ဝင်လာရင်—",
+      },
+      {
+        type: "p",
+        text: "Request A → Check stock = 1 → Buy, Request B → Check stock = 1 → Buy",
+      },
+      {
+        type: "p",
+        text: "နှစ်ခုလုံးက stock > 0 ဆိုတာကို အောင်သွားတယ်။ အဲ့ဒီအချိန်မှာ System ရဲ့ Result က ဘယ် Request က အရင်လုပ်လဲ၊ ဘယ် Request က နောက်လုပ်လဲ ဆိုတဲ့ Timing ပေါ် မူတည်သွားတယ်။ ဒါကို Race Condition လို့ခေါ်တယ်။",
+      },
+      {
+        type: "p",
+        text: "Race Condition ကို အလွယ်ဆုံးမှတ်ရရင်— Code က တစ်ခုချင်းစီကြည့်ရင် မှန်တယ်။ Request နှစ်ခု တစ်ချိန်တည်းရောက်လာတဲ့အခါ အဲ့ဒီ Code တွေ ဘယ်လိုအပြန်အလှန် Run သွားလဲဆိုတာကြောင့် Result မှားတာ။",
+      },
+      {
+        type: "p",
+        text: "ဒီလို Bug မျိုးက တစ်ယောက်တည်း Test လုပ်နေတဲ့အချိန်မှာ မတွေ့တာများတယ်။ ဘာလို့လဲဆိုတော့—",
+      },
+      {
+        type: "p",
+        text: "User A → Request → Finish, User B → Request → Finish",
+      },
+      {
+        type: "p",
+        text: "ဆိုရင် အဆင်ပြေတယ်။ ဒါပေမယ့်—",
+      },
+      {
+        type: "p",
+        text: "User A → Request ────────→, User B → Request ────────→",
+      },
+      {
+        type: "p",
+        text: "လိုမျိုး တစ်ချိန်တည်းနီးပါး ဝင်လာရင် ပြဿနာစတယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒီလို Race Condition က ကိုယ်ရေးတဲ့ Online Shop လောက်မှာပဲ ဖြစ်နိုင်တာမဟုတ်ဘူး။ GitHub မှာလည်း သူတို့ရဲ့ Session Handling ထဲမှာ Rare Race Condition တစ်ခု ဖြစ်ခဲ့ဖူးတယ်။ Problem က User တစ်ယောက်ရဲ့ Session Cookie က တစ်ခါတလေ နောက် User ရဲ့ Response ထဲကို ပါသွားနိုင်တဲ့အခြေအနေ ဖြစ်ခဲ့တာ။",
+      },
+      {
+        type: "p",
+        text: "အစမှာ ဘာကြောင့်ဖြစ်တာလဲဆိုတာ မရှင်းဘူး။ GitHub က Request Log တွေကို ပြန်စစ်ပြီး Request တွေက တူညီတဲ့ Machine နဲ့ Process ထဲမှာ Handle လုပ်ထားတာတွေကို လိုက်ကြည့်ခဲ့တယ်။ နောက်ဆုံးမှာ Thread Safety ပြဿနာနဲ့ Request တွေအတွက် Object တစ်ခုကို ပြန်အသုံးပြုနေတဲ့အရာတွေ ပေါင်းပြီး Race Condition ဖြစ်နေခဲ့တာကို ရှာတွေ့ခဲ့တယ်။",
+      },
+      {
+        type: "p",
+        text: "ပိုစိတ်ဝင်စားစရာက Reproduce လုပ်တဲ့အခါ Request နှစ်ခုနီးနီးကပ်ကပ် ဝင်လာတာနဲ့တင် မလုံလောက်ဘူး။ Request တွေကို တိတိကျကျ Sequence တစ်ခုအတိုင်း ဖြစ်အောင်လုပ်ရပြီး Anonymous Request တစ်ခုပါ ထပ်လိုခဲ့တယ်။",
+      },
+      {
+        type: "p",
+        text: "ဒါကြောင့် Race Condition က ဘာလို့ Reproduce လုပ်ရခက်လဲဆိုတာကို ဒီ Case က တော်တော်ကောင်းကောင်းပြတယ်။ Code ကို တစ်ကြောင်းချင်းဖတ်ရုံနဲ့ ပြဿနာကို မမြင်ရဘူး။ ဘယ် Request က အရင်ဝင်လဲ၊ ဘယ် Thread က ဘယ် Data ကိုသုံးနေလဲ၊ ဘယ် Object ကို ဘယ်အချိန်မှာ ပြန်သုံးလိုက်လဲ— အဲ့ဒီ Timing တွေအထိ လိုက်ကြည့်မှ ပြဿနာကို ရှာတွေ့တာ။",
+      },
+      {
+        type: "p",
+        text: "ဒါကြောင့် Race Condition ကာကွယ်တဲ့အခါ Database Transaction, Lock, Atomic Update, Optimistic Locking စတာတွေကို Situation အလိုက် သုံးကြတယ်။",
+      },
+      {
+        type: "p",
+        text: "အဓိကတွေးစရာကတော့— “ဒီ Data ကို တစ်ချိန်တည်းမှာ လူနှစ်ယောက်လာကိုင်ရင် ဘာဖြစ်မလဲ?” ဆိုတာကို စဉ်းစားဖို့ပဲ။",
+      },
+      {
+        type: "p",
+        text: "Frontend မှာ Button ကို Disable လုပ်ထားတာနဲ့တင်လည်း မလုံလောက်ဘူး။ Request က Frontend ကနေမလာဘဲ API ကို တိုက်ရိုက်ခေါ်လို့ရနိုင်တယ်။ Request နှစ်ခုလည်း တစ်ချိန်တည်း ရောက်လာနိုင်တယ်။",
+      },
+      {
+        type: "p",
+        text: "အစမှာပြောခဲ့တဲ့— “ဒီ Bug က တစ်ခါတလေမှ ဖြစ်တယ်ဗျ…” ဆိုတဲ့ Bug တွေကို တွေ့ရင် Timing ကိုပါ စဉ်းစားကြည့်ပါ။",
+      },
+      {
+        type: "p",
+        text: "တစ်ခါတလေ Code ရဲ့ Logic မမှားဘူး။ Code နှစ်ခု တစ်ချိန်တည်းမှာ ပြေးသွားတဲ့ပုံစံက မှားနေတာ။",
+      },
+      {
+        type: "quote",
+        text: "အဲ့ဒါကြောင့် နောက်တစ်ခါ— “ဒီ Bug က တစ်ခါတလေမှ ဖြစ်တယ်ဗျ…” လို့ ကြားရရင်— “Race Condition ဖြစ်နိုင်မလား?” ဆိုတာလည်း တစ်ချက် စဉ်းစားကြည့်ပါ။",
+      },
+    ],
+  },
 ];
 
 const BURMESE_DIGITS = "၀၁၂၃၄၅၆၇၈၉";
